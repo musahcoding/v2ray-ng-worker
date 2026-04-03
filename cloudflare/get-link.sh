@@ -20,7 +20,7 @@ if [ -z "$UUID" ] || [ -z "$DOMAIN_SUFFIX" ]; then
   exit 1
 fi
 
-CONFIG_NAME=${CONFIG_NAME:-cf-$CUSTOM_DOMAIN}
+CONFIG_NAME=${CONFIG_NAME:-cf-$DOMAIN_SUFFIX}
 
 if [ -n "$CLEAN_IP" ]; then
   ADDRESS="$CLEAN_IP"
