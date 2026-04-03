@@ -30,6 +30,7 @@ WebSocket for use with v2rayNG. A separate Xray server setup lives in
 |---------------|----------------------------------------------|
 | `/<UUID>`     | Returns the v2rayNG connection link (secret) |
 | `/vless`      | VLESS WebSocket proxy endpoint               |
+| `/ping`       | Returns `{"status":"ok","ip":"..."}` — use to test if a clean IP is reachable from Iran |
 | anything else | 404                                          |
 
 ## VLESS protocol (in `parseVless`)

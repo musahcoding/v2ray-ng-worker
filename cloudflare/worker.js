@@ -7,6 +7,7 @@
  * Routes:
  *   /vless    - VLESS WebSocket proxy endpoint
  *   /<UUID>   - shows the v2rayNG connection link
+ *   /ping     - connectivity test, returns caller's IP
  *   other     - 404
  */
 
@@ -23,6 +24,13 @@ export default {
       if (url.pathname === '/' + uuid) {
         return new Response(getLink(req.headers.get('Host'), uuid), {
           headers: { 'content-type': 'text/plain;charset=utf-8' },
+        });
+      }
+
+      if (url.pathname === '/ping') {
+        const ip = req.headers.get('CF-Connecting-IP') || 'unknown';
+        return new Response(JSON.stringify({ status: 'ok', ip }), {
+          headers: { 'content-type': 'application/json' },
         });
       }
 
