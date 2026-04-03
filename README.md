@@ -108,10 +108,16 @@ bash cloudflare/deploy.sh
 ### Get the connection link
 
 ```bash
-bash cloudflare/get-link.sh
+bash cloudflare/get-link.sh              # uses domain as address
+bash cloudflare/clean-ips.sh             # find clean IP for friend's ISP
+bash cloudflare/get-link.sh <clean-ip>   # use clean IP (if domain is blocked)
 ```
 
-Or visit `https://<CUSTOM_DOMAIN>/<UUID>` in a browser.
+The config name in v2rayNG defaults to `cf-<domain>`. Pass a second
+argument to override it.
+
+The browser link (`https://<CUSTOM_DOMAIN>/<UUID>`) always uses the
+domain — browsers cannot use a different address and SNI separately.
 
 ### Destroy
 
@@ -148,6 +154,9 @@ bash xray/provision.sh
 ```bash
 bash xray/get-link.sh
 ```
+
+The config name in v2rayNG defaults to `do-<domain>`. Pass an argument
+to override it.
 
 ### Destroy all resources
 

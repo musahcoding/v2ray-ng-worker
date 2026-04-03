@@ -10,7 +10,7 @@
 set -e
 
 CLEAN_IP=${1:-}
-CONFIG_NAME=${2:-cf-$(openssl rand -hex 3)}
+CONFIG_NAME=${2:-}
 
 source .credentials
 
@@ -18,6 +18,8 @@ if [ -z "$UUID" ] || [ -z "$CUSTOM_DOMAIN" ]; then
   echo "Missing UUID or CUSTOM_DOMAIN in .credentials"
   exit 1
 fi
+
+CONFIG_NAME=${CONFIG_NAME:-cf-$CUSTOM_DOMAIN}
 
 if [ -n "$CLEAN_IP" ]; then
   ADDRESS="$CLEAN_IP"
@@ -48,3 +50,6 @@ echo "  Fingerprint: chrome"
 echo ""
 echo "--- Or visit in browser ---"
 echo "  https://$CUSTOM_DOMAIN/$UUID"
+if [ -n "$CLEAN_IP" ]; then
+  echo "  (browser always uses the domain — requires $CUSTOM_DOMAIN to be reachable)"
+fi

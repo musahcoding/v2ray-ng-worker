@@ -5,7 +5,7 @@
 
 set -e
 
-CONFIG_NAME=${1:-xray-$(openssl rand -hex 3)}
+CONFIG_NAME=${1:-}
 
 source .credentials
 
@@ -13,6 +13,8 @@ if [ -z "$UUID" ] || [ -z "$XRAY_DOMAIN" ]; then
   echo "Missing UUID or XRAY_DOMAIN in .credentials"
   exit 1
 fi
+
+CONFIG_NAME=${CONFIG_NAME:-do-$XRAY_DOMAIN}
 
 LINK="vless://$UUID@$XRAY_DOMAIN:5050?type=tcp&encryption=none&path=%2F&host=cloudflare.com&headerType=http&security=tls&fp=chrome&alpn=h2%2Chttp%2F1.1&sni=$XRAY_DOMAIN#$CONFIG_NAME"
 

@@ -18,7 +18,7 @@ set -e
 DOMAIN=$1
 UUID=$2
 PORT=5050
-CONFIG_NAME=${3:-xray-$(openssl rand -hex 3)}
+CONFIG_NAME=${3:-do-$DOMAIN}
 
 if [ -z "$DOMAIN" ] || [ -z "$UUID" ]; then
   echo "Usage: bash xray/setup.sh <domain> <uuid> [config-name]"
