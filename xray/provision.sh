@@ -8,14 +8,14 @@
 # Reads from .credentials:
 #   DIGITALOCEAN_TOKEN  - DO API token
 #   UUID                - VLESS UUID (shared with Cloudflare worker)
-#   XRAY_DOMAIN         - subdomain pointing to the droplet
+#   CUSTOM_DOMAIN         - subdomain pointing to the droplet
 #                         e.g. proxy.yourdomain.com
 
 set -e
 
 source .credentials
 
-DOMAIN=${XRAY_DOMAIN}
+DOMAIN=${CUSTOM_DOMAIN}
 SSH_KEY_FILE="xray/.do_ssh_key"
 SSH_KEY_NAME="v2ray-do-server"
 REGION="fra1"
@@ -24,7 +24,7 @@ IMAGE="ubuntu-24-04-x64"
 DROPLET_NAME="v2ray-xray"
 
 if [ -z "$DIGITALOCEAN_TOKEN" ] || [ -z "$UUID" ] || [ -z "$DOMAIN" ]; then
-  echo "Missing DIGITALOCEAN_TOKEN, UUID or XRAY_DOMAIN in .credentials"
+  echo "Missing DIGITALOCEAN_TOKEN, UUID or CUSTOM_DOMAIN in .credentials"
   exit 1
 fi
 

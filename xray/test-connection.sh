@@ -17,29 +17,29 @@ set -e
 
 source .credentials
 
-if [ -z "$XRAY_DOMAIN" ]; then
-  echo "Missing XRAY_DOMAIN in .credentials"
+if [ -z "$CUSTOM_DOMAIN" ]; then
+  echo "Missing CUSTOM_DOMAIN in .credentials"
   exit 1
 fi
 
 PASS="[PASS]"
 FAIL="[FAIL]"
 
-echo "=== Testing $XRAY_DOMAIN ==="
+echo "=== Testing $CUSTOM_DOMAIN ==="
 echo ""
 
 # 1. DNS
 echo -n "1. DNS resolution ... "
-IP=$(dig +short "$XRAY_DOMAIN" | tail -1)
+IP=$(dig +short "$CUSTOM_DOMAIN" | tail -1)
 if [ -z "$IP" ]; then
-  echo "$FAIL could not resolve $XRAY_DOMAIN"
+  echo "$FAIL could not resolve $CUSTOM_DOMAIN"
   exit 1
 fi
 echo "$PASS -> $IP"
 
 # 2. TCP
 echo -n "2. TCP port 443 ... "
-if timeout 5 bash -c "echo >/dev/tcp/$XRAY_DOMAIN/443" 2>/dev/null; then
+if timeout 5 bash -c "echo >/dev/tcp/$CUSTOM_DOMAIN/443" 2>/dev/null; then
   echo "$PASS open"
 else
   echo "$FAIL port 443 unreachable (IP may be blocked)"
@@ -49,7 +49,7 @@ fi
 # 3. TLS / Reality fallback
 echo -n "3. TLS handshake (Reality fallback) ... "
 CERT=$(echo | timeout 5 openssl s_client \
-  -connect "$XRAY_DOMAIN:443" \
+  -connect "$CUSTOM_DOMAIN:443" \
   -servername www.microsoft.com \
   2>/dev/null | openssl x509 -noout -subject 2>/dev/null || true)
 if echo "$CERT" | grep -qi "microsoft"; then
@@ -63,7 +63,7 @@ echo ""
 echo "=== All checks passed — server is reachable ==="
 echo ""
 echo "Quick browser test from any device (no app needed):"
-echo "  https://$XRAY_DOMAIN"
+echo "  https://$CUSTOM_DOMAIN"
 echo ""
 echo "Expected results:"
 echo "  Cert warning (www.microsoft.com cert) -> server reachable, Reality"

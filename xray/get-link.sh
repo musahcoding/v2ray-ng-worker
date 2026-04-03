@@ -9,14 +9,14 @@ CONFIG_NAME=${1:-}
 
 source .credentials
 
-if [ -z "$UUID" ] || [ -z "$XRAY_DOMAIN" ]; then
-  echo "Missing UUID or XRAY_DOMAIN in .credentials"
+if [ -z "$UUID" ] || [ -z "$CUSTOM_DOMAIN" ]; then
+  echo "Missing UUID or CUSTOM_DOMAIN in .credentials"
   exit 1
 fi
 
-CONFIG_NAME=${CONFIG_NAME:-do-$XRAY_DOMAIN}
+CONFIG_NAME=${CONFIG_NAME:-do-$CUSTOM_DOMAIN}
 
-LINK="vless://$UUID@$XRAY_DOMAIN:5050?type=tcp&encryption=none&path=%2F&host=cloudflare.com&headerType=http&security=tls&fp=chrome&alpn=h2%2Chttp%2F1.1&sni=$XRAY_DOMAIN#$CONFIG_NAME"
+LINK="vless://$UUID@$CUSTOM_DOMAIN:5050?type=tcp&encryption=none&path=%2F&host=cloudflare.com&headerType=http&security=tls&fp=chrome&alpn=h2%2Chttp%2F1.1&sni=$CUSTOM_DOMAIN#$CONFIG_NAME"
 
 echo "=== v2rayNG Connection Info (DigitalOcean + TLS) ==="
 echo ""
@@ -25,12 +25,12 @@ echo ""
 echo "$LINK"
 echo ""
 echo "--- Manual settings ---"
-echo "  Address    : $XRAY_DOMAIN"
+echo "  Address    : $CUSTOM_DOMAIN"
 echo "  Port       : 5050"
 echo "  UUID       : $UUID"
 echo "  Encryption : none"
 echo "  Transport  : TCP"
 echo "  Header     : HTTP obfuscation (host: cloudflare.com)"
 echo "  Security   : TLS"
-echo "  SNI        : $XRAY_DOMAIN"
+echo "  SNI        : $CUSTOM_DOMAIN"
 echo "  Fingerprint: chrome"

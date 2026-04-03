@@ -15,7 +15,7 @@ source .credentials
 echo "=== This will permanently destroy:"
 echo "    - DigitalOcean droplet: v2ray-xray"
 echo "    - DigitalOcean SSH key: v2ray-do-server"
-echo "    - Cloudflare DNS record: $XRAY_DOMAIN"
+echo "    - Cloudflare DNS record: $CUSTOM_DOMAIN"
 echo "    - Local SSH keys: xray/.do_ssh_key*"
 echo ""
 read -p "Type 'yes' to confirm: " CONFIRM
@@ -56,21 +56,21 @@ fi
 
 # ── Cloudflare DNS ───────────────────────────────────────────────────────────
 echo ""
-echo "=== Deleting Cloudflare DNS record: $XRAY_DOMAIN ==="
-SUBDOMAIN=$(echo "$XRAY_DOMAIN" | cut -d. -f1)
-ZONE=$(echo "$XRAY_DOMAIN" | cut -d. -f2-)
+echo "=== Deleting Cloudflare DNS record: $CUSTOM_DOMAIN ==="
+SUBDOMAIN=$(echo "$CUSTOM_DOMAIN" | cut -d. -f1)
+ZONE=$(echo "$CUSTOM_DOMAIN" | cut -d. -f2-)
 ZONE_ID=$(curl -s "https://api.cloudflare.com/client/v4/zones?name=$ZONE" \
   -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
   | jq -r '.result[0].id')
 
-RECORD_ID=$(curl -s "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?name=$XRAY_DOMAIN" \
+RECORD_ID=$(curl -s "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?name=$CUSTOM_DOMAIN" \
   -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
   | jq -r '.result[0].id')
 
 if [ -n "$RECORD_ID" ] && [ "$RECORD_ID" != "null" ]; then
   curl -s -X DELETE "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$RECORD_ID" \
     -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | jq '{success, errors}'
-  echo "DNS record $XRAY_DOMAIN deleted."
+  echo "DNS record $CUSTOM_DOMAIN deleted."
 else
   echo "No DNS record found, skipping."
 fi

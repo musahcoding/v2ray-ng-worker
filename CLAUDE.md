@@ -108,8 +108,7 @@ All scripts are run from the project root. They read from `.credentials`.
 | `CLOUDFLARE_API_TOKEN`  | wrangler, provision, destroy    |
 | `CLOUDFLARE_ACCOUNT_ID` | wrangler                        |
 | `UUID`                  | both setups                     |
-| `CUSTOM_DOMAIN`         | Cloudflare Worker custom domain |
+| `CUSTOM_DOMAIN`         | all scripts (CF + Xray/DO)      |
 | `DIGITALOCEAN_TOKEN`    | provision, destroy              |
-| `XRAY_DOMAIN`           | provision, destroy, get-link    |
 
 The CF API token needs: Workers:Edit + Zone:DNS:Edit permissions.

@@ -88,9 +88,8 @@ This file is gitignored and never committed.
 | `CLOUDFLARE_API_TOKEN`  | Cloudflare API token (see above)        |
 | `CLOUDFLARE_ACCOUNT_ID` | Found on Workers & Pages sidebar        |
 | `UUID`                  | Your VLESS UUID (shared by both setups) |
-| `CUSTOM_DOMAIN`         | Cloudflare Worker domain                |
+| `CUSTOM_DOMAIN`         | Domain for the active provider          |
 | `DIGITALOCEAN_TOKEN`    | DigitalOcean API token (see above)      |
-| `XRAY_DOMAIN`           | Subdomain for the DO server             |
 
 Generate a UUID at [uuidgenerator.net](https://www.uuidgenerator.net/).
 
