@@ -11,6 +11,7 @@
 set -e
 
 source .credentials
+CUSTOM_DOMAIN="do-$DOMAIN_SUFFIX"
 
 echo "=== This will permanently destroy:"
 echo "    - DigitalOcean droplet: v2ray-xray"

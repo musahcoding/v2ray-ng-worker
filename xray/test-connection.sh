@@ -16,9 +16,10 @@
 set -e
 
 source .credentials
+CUSTOM_DOMAIN="do-$DOMAIN_SUFFIX"
 
-if [ -z "$CUSTOM_DOMAIN" ]; then
-  echo "Missing CUSTOM_DOMAIN in .credentials"
+if [ -z "$DOMAIN_SUFFIX" ]; then
+  echo "Missing DOMAIN_SUFFIX in .credentials"
   exit 1
 fi
 

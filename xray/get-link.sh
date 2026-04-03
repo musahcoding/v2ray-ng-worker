@@ -8,13 +8,14 @@ set -e
 CONFIG_NAME=${1:-}
 
 source .credentials
+CUSTOM_DOMAIN="do-$DOMAIN_SUFFIX"
 
-if [ -z "$UUID" ] || [ -z "$CUSTOM_DOMAIN" ]; then
-  echo "Missing UUID or CUSTOM_DOMAIN in .credentials"
+if [ -z "$UUID" ] || [ -z "$DOMAIN_SUFFIX" ]; then
+  echo "Missing UUID or DOMAIN_SUFFIX in .credentials"
   exit 1
 fi
 
-CONFIG_NAME=${CONFIG_NAME:-do-$CUSTOM_DOMAIN}
+CONFIG_NAME=${CONFIG_NAME:-do-$DOMAIN_SUFFIX}
 
 LINK="vless://$UUID@$CUSTOM_DOMAIN:5050?type=tcp&encryption=none&path=%2F&host=cloudflare.com&headerType=http&security=tls&fp=chrome&alpn=h2%2Chttp%2F1.1&sni=$CUSTOM_DOMAIN#$CONFIG_NAME"
 

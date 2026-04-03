@@ -5,6 +5,7 @@
 set -e
 
 source .credentials
+CUSTOM_DOMAIN="cf-$DOMAIN_SUFFIX"
 
 if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
   echo "Missing CLOUDFLARE_API_TOKEN or CLOUDFLARE_ACCOUNT_ID in .credentials"

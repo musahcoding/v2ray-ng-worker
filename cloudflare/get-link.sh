@@ -13,9 +13,10 @@ CLEAN_IP=${1:-}
 CONFIG_NAME=${2:-}
 
 source .credentials
+CUSTOM_DOMAIN="cf-$DOMAIN_SUFFIX"
 
-if [ -z "$UUID" ] || [ -z "$CUSTOM_DOMAIN" ]; then
-  echo "Missing UUID or CUSTOM_DOMAIN in .credentials"
+if [ -z "$UUID" ] || [ -z "$DOMAIN_SUFFIX" ]; then
+  echo "Missing UUID or DOMAIN_SUFFIX in .credentials"
   exit 1
 fi
 

@@ -14,7 +14,7 @@
 set -e
 
 source .credentials
-
+CUSTOM_DOMAIN="do-$DOMAIN_SUFFIX"
 DOMAIN=${CUSTOM_DOMAIN}
 SSH_KEY_FILE="xray/.do_ssh_key"
 SSH_KEY_NAME="v2ray-do-server"
@@ -24,7 +24,7 @@ IMAGE="ubuntu-24-04-x64"
 DROPLET_NAME="v2ray-xray"
 
 if [ -z "$DIGITALOCEAN_TOKEN" ] || [ -z "$UUID" ] || [ -z "$DOMAIN" ]; then
-  echo "Missing DIGITALOCEAN_TOKEN, UUID or CUSTOM_DOMAIN in .credentials"
+  echo "Missing DIGITALOCEAN_TOKEN, UUID or DOMAIN_SUFFIX in .credentials"
   exit 1
 fi
 

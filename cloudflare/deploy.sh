@@ -5,9 +5,10 @@
 set -e
 
 source .credentials
+CUSTOM_DOMAIN="cf-$DOMAIN_SUFFIX"
 
-if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$UUID" ] || [ -z "$CUSTOM_DOMAIN" ]; then
-  echo "Missing CLOUDFLARE_API_TOKEN, UUID or CUSTOM_DOMAIN in .credentials"
+if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$UUID" ] || [ -z "$DOMAIN_SUFFIX" ]; then
+  echo "Missing CLOUDFLARE_API_TOKEN, UUID or DOMAIN_SUFFIX in .credentials"
   exit 1
 fi
 

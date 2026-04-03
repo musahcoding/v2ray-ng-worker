@@ -83,13 +83,13 @@ the right sidebar.
 Copy `.credentials-dist` to `.credentials` and fill in all fields.
 This file is gitignored and never committed.
 
-| Field                   | Description                             |
-|-------------------------|-----------------------------------------|
-| `CLOUDFLARE_API_TOKEN`  | Cloudflare API token (see above)        |
-| `CLOUDFLARE_ACCOUNT_ID` | Found on Workers & Pages sidebar        |
-| `UUID`                  | Your VLESS UUID (shared by both setups) |
-| `CUSTOM_DOMAIN`         | Domain for the active provider          |
-| `DIGITALOCEAN_TOKEN`    | DigitalOcean API token (see above)      |
+| Field                   | Description                                  |
+|-------------------------|----------------------------------------------|
+| `CLOUDFLARE_API_TOKEN`  | Cloudflare API token (see above)             |
+| `CLOUDFLARE_ACCOUNT_ID` | Found on Workers & Pages sidebar             |
+| `UUID`                  | Your VLESS UUID (shared by both setups)      |
+| `DOMAIN_SUFFIX`         | Base domain; scripts prepend `cf-` or `do-` |
+| `DIGITALOCEAN_TOKEN`    | DigitalOcean API token (see above)           |
 
 Generate a UUID at [uuidgenerator.net](https://www.uuidgenerator.net/).
 
