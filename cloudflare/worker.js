@@ -22,7 +22,16 @@ export default {
       const url = new URL(req.url);
 
       if (url.pathname === '/' + uuid) {
-        return new Response(getLink(req.headers.get('Host'), uuid), {
+        const host = req.headers.get('Host');
+        const accept = req.headers.get('Accept') || '';
+        // v2rayNG subscription import: return only the vless:// link, base64-encoded
+        // Browser visit: return the full human-readable info page
+        if (accept.includes('text/html')) {
+          return new Response(getLink(host, uuid), {
+            headers: { 'content-type': 'text/plain;charset=utf-8' },
+          });
+        }
+        return new Response(btoa(getVlessLink(host, uuid)), {
           headers: { 'content-type': 'text/plain;charset=utf-8' },
         });
       }
@@ -188,7 +197,7 @@ async function forwardDns(ws, buf) {
   }
 }
 
-function getLink(host, uuid) {
+function getVlessLink(host, uuid) {
   const params = new URLSearchParams({
     encryption: 'none',
     security:   'tls',
@@ -198,7 +207,11 @@ function getLink(host, uuid) {
     host:       host,
     path:       '/vless',
   });
-  const link = 'vless://' + uuid + '@' + host + ':443?' + params + '#CF-Worker';
+  return 'vless://' + uuid + '@' + host + ':443?' + params + '#CF-Worker';
+}
+
+function getLink(host, uuid) {
+  const link = getVlessLink(host, uuid);
 
   return [
     '=== v2rayNG Connection Info ===',
