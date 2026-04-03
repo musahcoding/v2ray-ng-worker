@@ -2,3 +2,8 @@
 *.jpg
 *.txt
 .idea/
+.credentials
+.wrangler/
+cloudflare/wrangler.toml
+xray/.do_ssh_key
+xray/.do_ssh_key.pub
